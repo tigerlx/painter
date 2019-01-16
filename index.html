@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+    #save {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 5px 8px;
+      background: #ccc;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <h1>Hello World!</h1> -->
+  <!-- All of the Node.js APIs are available in this renderer process. -->
+  <!-- We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>. -->
+
+  <canvas id="painter"></canvas>
+  <div id="save">保 存</div>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+  <script>
+      // const { ipcRenderer } = require('electron')
+      // const updateOnlineStatus = () => {
+      //   console.log(1111)
+      //   ipcRenderer.send('online-status-changed', navigator.onLine ? 'online' : 'offline')
+      // }
+
+      // window.addEventListener('online',  updateOnlineStatus)
+      // window.addEventListener('offline',  updateOnlineStatus)
+
+      // updateOnlineStatus()
+  </script>
+</body>
+
+</html>
