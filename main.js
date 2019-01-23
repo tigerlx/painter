@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain, Menu} = require('electron')
+const {app, BrowserWindow, ipcMain, Menu, dialog} = require('electron')
 const fs = require('fs')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -58,22 +58,28 @@ ipcMain.on('online-status-changed', (event, status) => {
   console.log(status)
 })
 
-ipcMain.on('save', (event, data) => {
-  if (data) {
-    let path = './assets/' + new Date().getTime() + '.png'
+ipcMain.on('save-dialog', function (event) {
+  const options = {
+    title: '保存图片',
+    filters: [
+      { name: 'Images', extensions: ['png'] }
+    ]
+  }
+  dialog.showSaveDialog(options, function (filename) {
+    event.sender.send('saved-file', filename)
+  })
+})
+
+ipcMain.on('save', (event, path, data) => {
+  if (data && path) {
     let base64Data = data.replace(/^data:image\/\w+;base64,/, "");
     let dataBuffer = Buffer.from(base64Data, 'base64');
-    fs.exists('./assets', function(res) {
-      if (!res) {
-        fs.mkdirSync('./assets')
+    fs.writeFile(path, dataBuffer, function(err) {
+      if(err){
+        throw err
+      }else{
+        console.log(path)
       }
-      fs.writeFile(path, dataBuffer, function(err) {
-        if(err){
-          throw err
-        }else{
-          console.log(path)
-        }
-      })
     })
   }
 })

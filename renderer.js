@@ -20,8 +20,14 @@ window.onload = function () {
     // let height = document.body.clientHeight
 
     saveBtn.onclick = function () {
-        ipcRenderer.send('save', Painter.canvas.toDataURL())
+        ipcRenderer.send('save-dialog')
     }
+
+    ipcRenderer.on('saved-file', function (event, path) {
+        if (path) {
+            ipcRenderer.send('save', path, Painter.canvas.toDataURL())
+        }
+    })
 
     // function undo () {
     //     lines.pop()
