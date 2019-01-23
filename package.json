@@ -16,9 +16,11 @@
     "quick",
     "start",
     "tutorial",
-    "demo"
+    "demo",
+    "canvas",
+    "paint"
   ],
-  "author": "GitHub",
+  "author": "Tiger",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^4.0.1",
